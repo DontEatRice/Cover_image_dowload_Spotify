@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .content {
+            width: 60vw;
+            display: flex;
+            border: 2px solid black;
+            justify-content: space-evenly;
+        }
+        .column {
+            width: 45%;
+            background-color: aqua;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        .block {
+            padding: 20px;
+            margin-top: 5px;
+            border: 2px solid red;
+            background-color: bisque;
+            display: flex;
+        }
+
+        .block img {
+            display: block;
+            height: 100px;
+            width: 100px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            flex-shrink: none;
+        }
+        @media (max-width: 600px) {
+            .column {
+                width: 90%;
+            }
+            .content {
+                width: 100vw;
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="albums column">
+            <div class="block">
+                <div class="info">
+                    <span class="name">Name</span>
+                    <img src="https://via.placeholder.com/640">
+                </div>
+                <div class="buttons">
+                    <button><a href="https://via.placeholder.com/640.png" download="img">Pobierz</a></button>
+                    <button>Download 2  </button>
+                    <button>Download 3  </button>
+                </div>
+            </div>
+            <div class="block">Sed, reiciendis error? Explicabo impedit modi maxime ipsa ex quidem labore, adipisci, laboriosam, natus consequuntur facilis. Quis molestiae sed excepturi.</div>
+            <div class="block">Debitis voluptatum non accusantium quo unde impedit deserunt quibusdam! Necessitatibus quod magnam illum adipisci optio recusandae quae corporis inventore itaque.</div>
+            <div class="block">Numquam laboriosam qui quo, porro alias eveniet, doloremque nulla maxime, sed reiciendis ea facere. Quasi earum perferendis dicta officiis repudiandae?</div>
+            <div class="block">Reiciendis dolores modi nobis a ea eos fugit soluta obcaecati nesciunt consequatur. Voluptas doloribus non repellendus deserunt nulla voluptatem officia.</div>
+        </div>
+        <div class="artists column">
+            <div class="block">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cumque consequatur possimus recusandae ipsam placeat qui debitis tempore maxime omnis dignissimos.</div>
+            <div class="block">Libero consequatur rem architecto iste. Quisquam temporibus accusamus velit consectetur reprehenderit assumenda rem odio aspernatur dolorem nulla quos, suscipit facere.</div>
+            <div class="block">Voluptatibus animi aperiam autem officiis velit asperiores harum distinctio blanditiis eaque in ipsa sequi a earum tempora saepe, repellendus labore?</div>
+            <div class="block">Nemo optio odit laboriosam a assumenda, magnam quod nostrum placeat ex vitae minima perferendis autem praesentium et temporibus soluta incidunt?</div>
+            <div class="block">Harum corporis corrupti, culpa tempora enim aperiam voluptatem fuga ab fugit esse blanditiis assumenda impedit unde ex fugiat labore illo.</div>
+        </div>
+    </div>
+
+</body>
+</html>

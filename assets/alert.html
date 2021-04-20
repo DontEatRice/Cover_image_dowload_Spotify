@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: sans-serif;
+        }
+        .alert {
+            position: fixed;
+            right: 10px;
+            border: 2px solid red;
+            padding: 15px;
+            background-color: rgba(255, 0, 0, 0.329);
+            transition: .6s;
+            align-items: center;
+            display: inline-flex;
+        }
+        .active {
+            opacity: 1;
+            top: 10px;
+        }
+
+        .hidden {
+            opacity: 0;
+            top: -100%;
+        }
+
+        .text {
+            width: 90%;
+        }
+
+        .closeBtn {
+            font-weight: bold;
+            width: 10%;
+            text-align: center;
+        }
+
+        .closeBtn:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <button>Submit</button>
+    <div class="alert hidden"><div class="text">Something bad happend Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, natus.</div> <div class="closeBtn">X</div></div>
+    <script>
+        document.querySelector('button').addEventListener('click', () => {
+            const alert = document.querySelector('.alert')
+            alert.classList.remove('hidden')
+            alert.classList.add('active')
+        })
+
+        document.querySelector('.closeBtn').addEventListener('click', () => {
+            const alert = document.querySelector('.alert')
+            alert.classList.add('hidden')
+            alert.classList.remove('active')
+        })
+    </script>
+</body>
+</html>
