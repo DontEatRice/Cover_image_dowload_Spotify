@@ -4,10 +4,6 @@ const fetch = require('node-fetch');
 const Spotify = require('../classes/Spotify')
 require('dotenv').config();
 
-router.get('/test2', (req, res) => {
-    res.send(Spotify.token)
-})
-
 router.get('/token', (req, res) => {
     Spotify.getToken((err, token, token_type) => {
         if (err) {
@@ -19,8 +15,6 @@ router.get('/token', (req, res) => {
         }
     })
 })
-
-
 
 router.get('/spotify/search', (req, res) => {
     Spotify.getToken((err, token, token_type) => {
