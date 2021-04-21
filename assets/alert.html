@@ -19,8 +19,6 @@
             padding: 15px;
             background-color: rgba(255, 0, 0, 0.329);
             transition: .6s;
-            align-items: center;
-            display: inline-flex;
         }
         .active {
             opacity: 1;
@@ -35,11 +33,14 @@
         .text {
             width: 90%;
         }
-
         .closeBtn {
             font-weight: bold;
-            width: 10%;
-            text-align: center;
+            text-align: right;
+            display: inline;
+            flex-grow: 1;
+        }
+        .alert header {
+            display: flex;
         }
 
         .closeBtn:hover {
@@ -49,7 +50,15 @@
 </head>
 <body>
     <button>Submit</button>
-    <div class="alert hidden"><div class="text">Something bad happend Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur, natus.</div> <div class="closeBtn">X</div></div>
+    <div class="alert hidden">
+        <header>
+            <span class="text">Error occured!</span> 
+            <div class="closeBtn">X</div>
+        </header>
+        <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquam, officia mollitia odit veritatis debitis earum nesciunt esse delectus quia laudantium.
+        </p>
+    </div>
     <script>
         document.querySelector('button').addEventListener('click', () => {
             const alert = document.querySelector('.alert')

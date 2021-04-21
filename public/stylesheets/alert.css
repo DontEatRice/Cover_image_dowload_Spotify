@@ -1,0 +1,61 @@
+:root {
+    --spotifyGreen: #1DB954;
+    --spotifyBlack: #191414;
+    --textColor: rgb(172, 168, 168);
+}
+
+.alert {
+    position: fixed;
+    right: 10px;
+    border: 2px solid red;
+    padding: 15px;
+    background-color: rgba(255, 0, 0, 0.329);
+    color: var(--textColor);
+    transition: .6s;
+    min-width: 350px;
+}
+.active {
+    opacity: 1;
+    top: 10px;
+}
+
+.hidden {
+    opacity: 0;
+    top: -100%;
+}
+
+.alert header {
+    padding-bottom: 10px;
+    border-bottom: 2px solid red;
+    display: flex;
+}
+.alert i {
+    font-weight: bold;
+    text-align: right;
+    display: inline;
+    flex-grow: 1;
+}
+.alert p {
+    padding-top: 10px;
+}
+
+.alert i:hover {
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .alert {
+        width: 100%;
+        right: 0;
+    }
+
+    .active {
+        bottom: 0;
+        top: unset;
+    }
+    
+    .hidden {
+        bottom: -100%;
+        top: unset;
+    }
+} 

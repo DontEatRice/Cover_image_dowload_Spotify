@@ -151,15 +151,6 @@ span.extraInfo {
   color: var(--spotifyGreen);
 }
 
-.badSearch {
-  margin-right: auto;
-  margin-left: auto;
-  width: 40%;
-  padding: 30px;
-  background-color: #500a0a;
-  color: red;
-  border: 3px solid darkred;
-}
 
 @media (max-width: 800px) {
   

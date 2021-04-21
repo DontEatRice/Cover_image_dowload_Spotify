@@ -18,36 +18,6 @@ router.get('/token', (req, res) => {
             res.send({token: token, token_type: token_type, expires: Spotify.expires})
         }
     })
-
-    // fs.readFile('./data.json', 'utf8', async (err, data) => {
-    //     if (err)
-    //         console.error(err)
-    //     else {
-    //         let fileData = JSON.parse(data)
-    //         let changed = false
-    //         const expires = new Date(fileData.expires)
-    //         if (expires < new Date()) {
-    //             console.log('token expired, getting new one...')
-    //             try {
-    //                 fileData = await getSpotifyToken()
-    //                 const toExpire = new Date()
-    //                 toExpire.setTime(toExpire.getTime() + fileData.expires_in*1000)
-    //                 fileData.expires = toExpire.getTime()
-    //                 changed = true
-    //                 console.log(fileData.access_token)
-    //                 res.send({access_token: Buffer.from(fileData.access_token).toString('base64'), token_type: fileData.token_type, expires: fileData.expires})
-    //             } catch (e) {
-    //                 res.status(500)
-    //                 res.send('Something went wrong... ' + e)
-    //             }
-    //         } else {
-    //             res.send({access_token: Buffer.from(fileData.access_token).toString('base64'), token_type: fileData.token_type, expires: fileData.expires})
-    //         }
-
-    //         if (changed)
-    //             writeFile(fileData)
-    //     }
-    // })
 })
 
 
