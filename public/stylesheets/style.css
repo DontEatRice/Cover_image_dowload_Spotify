@@ -152,6 +152,26 @@ span.extraInfo {
 }
 
 
+@media (min-width: 801px) and (max-width: 1200px) {
+  .column {
+    flex-direction: column;
+    width: 80%;
+  }
+ 
+  .block {
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+ 
+  .block .info {
+    max-width: 50%;
+  }
+ 
+  .block .extraInfo {
+    min-width: 40%;
+  }
+}
+
 @media (max-width: 800px) {
   
   
@@ -187,6 +207,10 @@ span.extraInfo {
 
  .block .extraInfo {
    min-width: 50%;
+ }
+
+ .imgLinks .imageLink {
+   font-size: 1rem;
  }
   
 }

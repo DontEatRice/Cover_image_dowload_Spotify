@@ -3,23 +3,27 @@ const dataSchema = require('../models/data')
 require('dotenv').config();
 
 class Spotify {
-    static token = null
-    static token_type = null
-    static expires = null
+    token; token_type; expires
 
-    static checkIfExpired() {
+    constructor() {
+        this.token = null;
+        this.token_type = null;
+        this.expires = null;
+    }
+
+    checkIfExpired() {
         if (this.expires === null || Date.now() > this.expires) 
             return true
         return false
     }
 
-    static setData(token, token_type, expires) {
+    setData(token, token_type, expires) {
         this.token = token
         this.token_type = token_type
         this.expires = expires
     }
 
-    static updateDataInDB(data) {
+    updateDataInDB(data) {
         const toPush = {token: data.access_token, token_type: data.token_type, expires: Date.now() + data.expires_in*1000}
         dataSchema.findOneAndReplace({expires: {$gte:0}}, toPush, null, (err) => {
             if (err)
@@ -29,7 +33,7 @@ class Spotify {
         })
     }
     
-    static getToken(callback) {
+    getToken(callback) {
         if (this.checkIfExpired()) {
             // check in database for token data
             dataSchema.findOne({}, (err, data) => {
@@ -57,7 +61,7 @@ class Spotify {
             callback(null, this.token, this.token_type)
     }
 
-    static async getNewToken() {
+    async getNewToken() {
         try {
             const base64encoded = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64')
             const response = await fetch('https://accounts.spotify.com/api/token', {
@@ -77,4 +81,4 @@ class Spotify {
     }
 }
 
-module.exports = Spotify
+module.exports = new Spotify();
