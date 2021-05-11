@@ -79,6 +79,7 @@ const handleData = (err, data) => {
     
     if (data.artists) {
         if (data.artists.items.length === 0) return handleError('Nothing found!')
+        console.log(data)
         generateElements(data.artists.items, 'artists')
     }
 

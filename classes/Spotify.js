@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const dataSchema = require('../models/data')
 require('dotenv').config();
 
 class Spotify {
@@ -22,41 +21,15 @@ class Spotify {
         this.token_type = token_type
         this.expires = expires
     }
-
-    updateDataInDB(data) {
-        const toPush = {token: data.access_token, token_type: data.token_type, expires: Date.now() + data.expires_in*1000}
-        dataSchema.findOneAndReplace({expires: {$gte:0}}, toPush, null, (err) => {
-            if (err)
-                console.error(err)
-            else
-                console.log('udpated!')
-        })
-    }
     
     getToken(callback) {
         if (this.checkIfExpired()) {
-            // check in database for token data
-            dataSchema.findOne({}, (err, data) => {
-                if (err) 
-                    callback(err)
-                else {
-                    console.log('get data from database, because token is null or expired')
-                    // check if token from database is expired
-                    if (Date.now() < data.expires) {
-                        callback(null, data.token, data.token_type)
-                        this.setData(data.token, data.token_type, data.expires)
-                    } else {
-                        // if token is expired then make call for a new one
-                        this.getNewToken()
-                            .then(data => {
-                                callback(null, data.access_token, data.token_type)
-                                this.setData(data.access_token, data.token_type, Date.now() + data.expires_in*1000)
-                                this.updateDataInDB(data)
-                            })
-                            .catch(err => callback(err))
-                    }
-                }
-            })  
+            this.getNewToken()
+                .then(data => {
+                    callback(null, data.access_token, data.token_type)
+                    this.setData(data.access_token, data.token_type, Date.now() + data.expires_in*1000)
+                })
+                .catch(err => callback(err))
         } else
             callback(null, this.token, this.token_type)
     }

@@ -36,6 +36,29 @@ router.get('/spotify/search', (req, res) => {
     })
 })
 
+router.get('/artist/:id', (req, res) => {
+    Spotify.getToken((err, token, token_type) => {
+        if (err){
+            res.status(500).send(err)
+            return
+        }
+
+        const id = req.params.id
+        const uri = encodeURI(`https://api.spotify.com/v1/artists/${id}/albums`)
+
+        fetch(uri, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `${token_type} ${token}`
+            }
+        }).then(data => data.json())
+        .then(data => res.json(data))
+        .catch(err => res.status(500).send(err))
+    })
+})
+
+
 router.get('/download', (req, res) => {
     fetch(req.query.url)
     .then(response => {
