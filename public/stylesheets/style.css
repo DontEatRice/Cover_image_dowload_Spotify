@@ -99,6 +99,20 @@ input[type=radio]:hover {
   color: var(--spotifyGreen);
   display: flex;
 }
+
+.link {
+  color: var(--spotifyGreen);
+  transition: 0.3s;
+}
+
+.link:hover {
+  text-decoration: none;
+  background-color: black;
+}
+
+.link:visited {
+  color: var(--spotifyGreen);
+}
 /* inside block data organisation */
 
 .block img {

@@ -27,6 +27,9 @@
     <div id="data"></div>
   </div>
 
-  <script src='./javascripts/main.js' type='module'></script>
+  <script type='module'>
+    import {addSearchListener} from './javascripts/main.js'
+    window.onload = addSearchListener
+  </script>
 </body>
 </html>

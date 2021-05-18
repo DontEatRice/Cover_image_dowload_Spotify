@@ -4,7 +4,7 @@ import createElementWithClasses from './createElement.js'
 
 const getExtraAlbumData = element => {
     const {release_date, album_type} = element
-    let artists = 'none'
+    let artists = ['none']
     
     const spanWithText = (text) => {
         const span = createElementWithClasses('span', 'extraInfo')
@@ -14,14 +14,26 @@ const getExtraAlbumData = element => {
 
     const div = createElementWithClasses('div', 'extraInfo')
     div.appendChild(spanWithText(`Type: ${album_type}`))
+    const artistsSpan = createElementWithClasses('span', 'extraInfo')
+    const firstSpan = document.createElement('span')
+    firstSpan.textContent = 'Artists: '
+    artistsSpan.appendChild(firstSpan)
 
     if (element.artists.length > 0) {
-        artists = ''
-        for(const artist of element.artists)
-            artists += artist.name + ', '
+        element.artists.forEach((artist, i) => {
+            const a = createElementWithClasses('a', 'link')
+            a.href = `${window.location.origin}/artist?id=${artist.id}`
+            a.textContent = artist.name
+            artistsSpan.appendChild(a)
+            if (i < element.artists.length-1) {
+                const span = document.createElement('span')
+                span.textContent = ', '
+                artistsSpan.appendChild(span)
+            }
+        })
     }
 
-    div.appendChild(spanWithText(`Artist(s): ${artists}`))
+    div.appendChild(artistsSpan)
     div.appendChild(spanWithText(`Release date: ${release_date}`))
     return div
 }
@@ -37,6 +49,7 @@ const generateElements = (items, type) => {
         const block = createElementWithClasses('div', 'block')
         const spanName = createElementWithClasses('span', 'name')
         const infoDiv = createElementWithClasses('div', 'info')
+        
 
         spanName.textContent = element.name
         infoDiv.appendChild(spanName)
@@ -47,6 +60,14 @@ const generateElements = (items, type) => {
 
             img.src = element.images ? element.images[0].url : ''
             infoDiv.appendChild(img)
+
+            if (type === 'artists') {
+                infoDiv.style = 'cursor: pointer'
+                infoDiv.addEventListener('click', () => {
+                    window.location = `${window.location.origin}/artist?id=${element.id}`
+                })
+            }
+
             block.appendChild(infoDiv)
             
             for(const image of element.images) {
@@ -74,9 +95,7 @@ const generateElements = (items, type) => {
 }
 
 
-const handleData = (err, data) => {
-    if (err) return handleError(err)
-    
+const handleData = (data) => {
     if (data.artists) {
         if (data.artists.items.length === 0) return handleError('Nothing found!')
         console.log(data)
@@ -98,33 +117,37 @@ const search = (q, type) => {
             } else
                 return data.json()
         })
-        .then(data => handleData(null, data))
-        .catch(err => handleData(err))
+        .then(data => handleData(data))
+        .catch(err => handleError(err))
 }
 
 
-const searchForm = document.getElementById('searchForm')
+const addSearchListener = () => {
+    const searchForm = document.getElementById('searchForm')
 
-searchForm.addEventListener('submit', (e) => {
-    e.preventDefault()
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault()
 
-    const searchData = new FormData(searchForm)
-    const dataDiv = document.querySelector('#data')
-    let searchInput = null
-    let type = null
+        const searchData = new FormData(searchForm)
+        const dataDiv = document.querySelector('#data')
+        let searchInput = null
+        let type = null
 
-    for(const data of searchData) {
-        if (data[0] === 'searchInput')
-            searchInput = data[1]
-        else if (data[0] === 'type')
-            type = data[1]
-    }
+        for(const data of searchData) {
+            if (data[0] === 'searchInput')
+                searchInput = data[1]
+            else if (data[0] === 'type')
+                type = data[1]
+        }
 
-    if (searchInput === null || searchInput.replaceAll(' ', '') === '') {
-        handleError('Please type correct term')
-        return
-    } 
+        if (searchInput === null || searchInput.replaceAll(' ', '') === '') {
+            handleError('Please type correct term')
+            return
+        } 
 
-    dataDiv.textContent = ''
-    search(searchInput, type)
-})
+        dataDiv.textContent = ''
+        search(searchInput, type)
+    })
+}
+
+export {generateElements, addSearchListener}
