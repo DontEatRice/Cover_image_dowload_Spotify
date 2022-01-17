@@ -135,6 +135,7 @@ input[type=radio]:hover {
 .imgLinks .imageLink:hover {
   background-color: black;
   color: #14e65d;
+  cursor: pointer;
 }
 
 .block .imgLinks {

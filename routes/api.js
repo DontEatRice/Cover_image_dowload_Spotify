@@ -46,14 +46,6 @@ router.get('/artist/:id', (req, res) => {
     })
 })
 
-
-router.get('/download', (req, res) => {
-    fetch(req.query.url)
-    .then(response => {
-        response.body.pipe(res)
-    })
-})
-
 module.exports = router;
 
 

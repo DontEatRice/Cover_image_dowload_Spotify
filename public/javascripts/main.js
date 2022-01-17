@@ -71,11 +71,17 @@ const generateElements = (items, type) => {
             block.appendChild(infoDiv)
             
             for(const image of element.images) {
-                const link = createElementWithClasses('a', 'imageLink')
-
-                link.href = 'api/download?url=' + image.url
-                link.download = `${element.name}${image.height}_${image.width}.png`.replaceAll(' ', '_')
+                const link = createElementWithClasses('span', 'imageLink')
+                
                 link.textContent = `Download ${image.height} x ${image.width}`
+                const fileName = `${element.name}${image.height}_${image.width}.png`.replaceAll(' ', '_')
+
+                link.addEventListener('click', () => {
+                    fetch(image.url)
+                        .then(data => data.blob())
+                        .then(blob => downloadFile(blob, fileName))
+                        .catch(err => handleError(err))
+                })
 
                 imgLinks.appendChild(link)
             }
@@ -119,6 +125,21 @@ const search = (q, type) => {
         })
         .then(data => handleData(data))
         .catch(err => handleError(err))
+}
+
+const downloadFile = (blob, name) => {
+    const href = URL.createObjectURL(blob)
+
+    const a = Object.assign(document.createElement('a'), {
+        href,
+        style: 'display: none',
+        download: name
+    })
+
+    document.body.appendChild(a)
+    a.click()
+    URL.revokeObjectURL(href)
+    a.remove()
 }
 
 
